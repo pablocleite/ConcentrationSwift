@@ -10,11 +10,11 @@ import UIKit
 
 class ConcentrationViewController: UIViewController {
     
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+    private lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
     
-    let emojiChoices = ["🎃", "👻", "😼", "⛄️", "🐼", "🦊"]
-    lazy var availableEmojis = emojiChoices
-    var emoji = [Int:String]()
+    private let emojiChoices = ["🎃", "👻", "😼", "⛄️", "🐼", "🦊"]
+    private lazy var availableEmojis = emojiChoices
+    private var emoji = [Int:String]()
 
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet weak var newGameButton: UIButton!
@@ -36,7 +36,7 @@ class ConcentrationViewController: UIViewController {
         updateViewFromModel()
     }
     
-    func updateViewFromModel() {
+    private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -50,10 +50,10 @@ class ConcentrationViewController: UIViewController {
             }
         }
         flipCountLabel.text = "Flips: " + String(game.flipCount)
-        newGameButton.isHidden = !game.isFinished()
+        newGameButton.isHidden = !game.isFinished
     }
     
-    func emoji(for card: Card) -> String {
+    private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil, !availableEmojis.isEmpty {
             let randomIndex = Int(arc4random_uniform(UInt32(availableEmojis.count)))
             emoji[card.identifier] = availableEmojis.remove(at: randomIndex)

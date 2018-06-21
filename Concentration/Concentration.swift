@@ -9,19 +9,52 @@
 import Foundation
 
 class Concentration {
-    lazy var cards = [Card]()
+    private(set) lazy var cards = [Card]()
 
-    var indexOfFacedUpCard: Int?
+    private var indexOfFacedUpCard: Int? {
+        get {
+            var foundIndex: Int?
+            for cardIndex in cards.indices {
+                if cards[cardIndex].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = cardIndex
+                    } else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set(newValue) {
+            for cardIndex in cards.indices {
+                cards[cardIndex].isFaceUp = (cardIndex == newValue)
+            }
+        }
+    }
+    
+    var isFinished:Bool {
+        var finished = true
+        for card in cards {
+            if !card.isMatched {
+                finished = false
+                break
+            }
+        }
+        return finished
+    }
+    
+    private var numberOfPairsOfCards = 0
     var flipCount = 0
-    var numberOfPairsOfCards = 0
     
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards != 0, "Concentrarion.init(numberOfPairsOfCards: Int): number of pair of cards must be greather than 0.")
         self.numberOfPairsOfCards = numberOfPairsOfCards
         cards.reserveCapacity(numberOfPairsOfCards)
         newGame()
     }
     
     func chooseCard(at index: Int) {
+        assert(cards.indices.contains(index), "Concentrarion.chooseCard(at: index:Int): Chosen index not in cards.")
         if !cards[index].isMatched {
             if let matchIndex = indexOfFacedUpCard, matchIndex != index {
                 //Check if cards match
@@ -30,17 +63,12 @@ class Concentration {
                     cards[index].isMatched = true
                 }
                 cards[index].isFaceUp = true
-                indexOfFacedUpCard = nil
                 flipCount += 1
             } else {
                 //Either no cards or 2 cards are faced up.
-                for flipDownIndex in cards.indices {
-                    cards[flipDownIndex].isFaceUp = false
-                }
                 if (indexOfFacedUpCard != index) {
                     flipCount += 1
                 }
-                cards[index].isFaceUp = true
                 indexOfFacedUpCard = index
             }
         }
@@ -56,18 +84,7 @@ class Concentration {
         shuffleCards()
     }
     
-    func isFinished() -> Bool {
-        var finished = true
-        for card in cards {
-            if !card.isMatched {
-                finished = false
-                break
-            }
-        }
-        return finished
-    }
-    
-    func shuffleCards() {
+    private func shuffleCards() {
         var shuffledCards = [Card]()
         shuffledCards.reserveCapacity(cards.count)
         while !cards.isEmpty {
