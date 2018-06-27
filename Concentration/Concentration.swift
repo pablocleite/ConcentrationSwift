@@ -8,22 +8,12 @@
 
 import Foundation
 
-class Concentration {
-    private(set) lazy var cards = [Card]()
+struct Concentration {
+    private(set) var cards = [Card]()
 
     private var indexOfFacedUpCard: Int? {
         get {
-            var foundIndex: Int?
-            for cardIndex in cards.indices {
-                if cards[cardIndex].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = cardIndex
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter {cards[$0].isFaceUp}.oneAndOnly
         }
         set(newValue) {
             for cardIndex in cards.indices {
@@ -53,12 +43,12 @@ class Concentration {
         newGame()
     }
     
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentrarion.chooseCard(at: index:Int): Chosen index not in cards.")
         if !cards[index].isMatched {
             if let matchIndex = indexOfFacedUpCard, matchIndex != index {
                 //Check if cards match
-                if cards[matchIndex].identifier == cards[index].identifier {
+                if cards[matchIndex] == cards[index] {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                 }
@@ -74,7 +64,7 @@ class Concentration {
         }
     }
     
-    func newGame() {
+    mutating func newGame() {
         flipCount = 0
         cards.removeAll(keepingCapacity: true)
         for _ in 0..<numberOfPairsOfCards {
@@ -84,7 +74,7 @@ class Concentration {
         shuffleCards()
     }
     
-    private func shuffleCards() {
+    private mutating func shuffleCards() {
         var shuffledCards = [Card]()
         shuffledCards.reserveCapacity(cards.count)
         while !cards.isEmpty {
@@ -92,5 +82,11 @@ class Concentration {
             shuffledCards.append(cards.remove(at: randomIndex))
         }
         cards = shuffledCards
+    }
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
     }
 }

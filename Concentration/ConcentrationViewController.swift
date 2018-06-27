@@ -13,10 +13,19 @@ class ConcentrationViewController: UIViewController {
     private lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
     
     private let emojiChoices = ["🎃", "👻", "😼", "⛄️", "🐼", "🦊"]
-    private lazy var availableEmojis = emojiChoices
-    private var emoji = [Int:String]()
+    private let flipCountStringAttributes: [NSAttributedStringKey : Any] = [
+        NSAttributedStringKey.strokeWidth : 3.0,
+        NSAttributedStringKey.strokeColor : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+    ]
 
-    @IBOutlet weak var flipCountLabel: UILabel!
+    private lazy var availableEmojis = emojiChoices
+    private var emoji = [Card:String]()
+
+    @IBOutlet weak var flipCountLabel: UILabel! {
+        didSet {
+            updateFlipCount()
+        }
+    }
     @IBOutlet weak var newGameButton: UIButton!
     //TODO Find a way of doing this without ctrl+drag
     @IBOutlet var cardButtons: [UIButton]!
@@ -49,17 +58,22 @@ class ConcentrationViewController: UIViewController {
                 button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             }
         }
-        flipCountLabel.text = "Flips: " + String(game.flipCount)
+        updateFlipCount()
         newGameButton.isHidden = !game.isFinished
     }
     
+    private func updateFlipCount() {
+        let attributedString = NSAttributedString(string: "Flips: \(game.flipCount)", attributes: flipCountStringAttributes)
+        flipCountLabel.attributedText = attributedString
+    }
+    
     private func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, !availableEmojis.isEmpty {
+        if emoji[card] == nil, !availableEmojis.isEmpty {
             let randomIndex = Int(arc4random_uniform(UInt32(availableEmojis.count)))
-            emoji[card.identifier] = availableEmojis.remove(at: randomIndex)
+            emoji[card] = availableEmojis.remove(at: randomIndex)
         }
         //Same as if emoji[card.identifier] != nil ? emoji[card.identifier] : "?"
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
 }
 
