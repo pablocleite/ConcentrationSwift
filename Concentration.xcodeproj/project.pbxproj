@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA1D452320E97040002986B3 /* ThemeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D452220E97040002986B3 /* ThemeFactory.swift */; };
+		AA1D452520E985E9002986B3 /* Array+Shuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D452420E985E9002986B3 /* Array+Shuffle.swift */; };
+		AA1D452720E98879002986B3 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D452620E98879002986B3 /* Int+Random.swift */; };
 		AA281B5A20D6FC3300BE8002 /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA281B5920D6FC3300BE8002 /* Concentration.swift */; };
 		AA281B5C20D6FCF200BE8002 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA281B5B20D6FCF200BE8002 /* Card.swift */; };
 		AAE0995220D5A39100A9CA4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE0995120D5A39100A9CA4F /* AppDelegate.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA1D452220E97040002986B3 /* ThemeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeFactory.swift; sourceTree = "<group>"; };
+		AA1D452420E985E9002986B3 /* Array+Shuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Shuffle.swift"; sourceTree = "<group>"; };
+		AA1D452620E98879002986B3 /* Int+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		AA281B5920D6FC3300BE8002 /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
 		AA281B5B20D6FCF200BE8002 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		AAE0994E20D5A39100A9CA4F /* Concentration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concentration.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,10 +66,13 @@
 			children = (
 				AAE0996320D5A50C00A9CA4F /* Supporting files */,
 				AAE0995320D5A39100A9CA4F /* ConcentrationViewController.swift */,
+				AA1D452220E97040002986B3 /* ThemeFactory.swift */,
 				AA281B5920D6FC3300BE8002 /* Concentration.swift */,
 				AA281B5B20D6FCF200BE8002 /* Card.swift */,
 				AAE0995520D5A39100A9CA4F /* Main.storyboard */,
 				AAE0995D20D5A39200A9CA4F /* Info.plist */,
+				AA1D452420E985E9002986B3 /* Array+Shuffle.swift */,
+				AA1D452620E98879002986B3 /* Int+Random.swift */,
 			);
 			path = Concentration;
 			sourceTree = "<group>";
@@ -150,6 +159,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAE0995420D5A39100A9CA4F /* ConcentrationViewController.swift in Sources */,
+				AA1D452720E98879002986B3 /* Int+Random.swift in Sources */,
+				AA1D452520E985E9002986B3 /* Array+Shuffle.swift in Sources */,
+				AA1D452320E97040002986B3 /* ThemeFactory.swift in Sources */,
 				AAE0995220D5A39100A9CA4F /* AppDelegate.swift in Sources */,
 				AA281B5A20D6FC3300BE8002 /* Concentration.swift in Sources */,
 				AA281B5C20D6FCF200BE8002 /* Card.swift in Sources */,
