@@ -10,11 +10,13 @@ import UIKit
 
 class ConcentrationViewController: UIViewController {
     
+    var theme: [String]?
+    
     private lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
     
     private let labelStringAttributes: [NSAttributedStringKey : Any] = [
         NSAttributedStringKey.strokeWidth : 3.0,
-        NSAttributedStringKey.strokeColor : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        NSAttributedStringKey.strokeColor : #colorLiteral(red: 0.3137254902, green: 0.5607843137, blue: 0.968627451, alpha: 1)
     ]
 
     private var availableEmojis: [String] = []
@@ -54,11 +56,15 @@ class ConcentrationViewController: UIViewController {
     
     private func initGame() {
         game.newGame()
-        availableEmojis = ThemeFactory.randomTheme()
+        availableEmojis = theme ?? []
         updateViewFromModel()
     }
     
     private func updateViewFromModel() {
+        guard cardButtons != nil else {
+            print("updateViewFromModel: View not loaded yet, ignoring method call")
+            return
+        }
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -68,7 +74,7 @@ class ConcentrationViewController: UIViewController {
                 button.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
             } else {
                 button.setTitle("", for: UIControlState.normal)
-                button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+                button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 0.3137254902, green: 0.5607843137, blue: 0.968627451, alpha: 1)
             }
         }
         updateFlipCount()

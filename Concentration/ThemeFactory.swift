@@ -10,14 +10,19 @@ import Foundation
 
 struct ThemeFactory {
     
-    private static var themes = [
-        ["🎃", "👻", "😼", "⛄️", "🐼", "🦊"], //Initial Theme
-        ["🐶", "🐱", "🐹", "🐰", "🦊", "🐼"], // Animals
-        ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐"], // Sports
-        ["🍓", "🍒", "🍑", "🥝", "🍇", "🍋"]  // Fruits
+    private static var themesDictionary = [
+        "Halloween" : ["🎃", "👻", "😼", "⛄️", "🐼", "🦊"], //Initial Theme
+        "Animals" : ["🐶", "🐱", "🐹", "🐰", "🦊", "🐼"], // Animals
+        "Sports" : ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐"], // Sports
+        "Fruits" : ["🍓", "🍒", "🍑", "🥝", "🍇", "🍋"]  // Fruits
     ]
     
+    static func theme(named themeName: String) -> [String]? {
+        return themesDictionary[themeName]
+    }
+    
     static func randomTheme() -> [String] {
+        let themes = Array(themesDictionary.values)
         return themes[Int.random(themes.count)]
     }
 }
