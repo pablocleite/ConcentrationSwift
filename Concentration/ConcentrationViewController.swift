@@ -10,7 +10,13 @@ import UIKit
 
 class ConcentrationViewController: UIViewController {
     
-    var theme: [String]?
+    var theme: [String]? {
+        didSet {
+            availableEmojis = theme ?? []
+            emoji = [:]
+            updateViewFromModel()
+        }
+    }
     
     private lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
     
